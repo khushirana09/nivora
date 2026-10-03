@@ -1,113 +1,539 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nivora — your AI mentor</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f1f2fb;--card:rgba(255,255,255,.72);--ink:#1b2144;--mute:#5d6486;--acc:#5b4ee8;--acc2:#2bb8a8;--line:rgba(27,33,68,.1);--g:radial-gradient(900px 500px at 0% -10%,#d9d4ff,transparent),radial-gradient(700px 500px at 100% 0%,#c9f1ec,transparent);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1330;--card:rgba(255,255,255,.07);--ink:#eceeff;--mute:#9aa1c9;--acc:#8f84ff;--acc2:#52d6c6;--line:rgba(255,255,255,.12);--g:radial-gradient(900px 500px at 0% -10%,#2a2470,transparent),radial-gradient(700px 500px at 100% 0%,#0f4b53,transparent)}}
-:root[data-theme="dark"]{--bg:#0f1330;--card:rgba(255,255,255,.07);--ink:#eceeff;--mute:#9aa1c9;--acc:#8f84ff;--acc2:#52d6c6;--line:rgba(255,255,255,.12);--g:radial-gradient(900px 500px at 0% -10%,#2a2470,transparent),radial-gradient(700px 500px at 100% 0%,#0f4b53,transparent)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);background-image:var(--g);background-attachment:fixed;color:var(--ink);font:16px/1.5 'Bricolage Grotesque',system-ui,sans-serif;min-height:100vh}
-main{max-width:640px;margin:auto;padding:20px 18px 110px}
-h1{font-size:2.3rem;line-height:1.1;margin:.2em 0 .3em;font-weight:800;letter-spacing:-.02em}h2{font-size:1.1rem;margin:0 0 10px}
-.card{background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:16px;margin:14px 0}
-.mute{color:var(--mute)}.row{display:flex;align-items:center;gap:10px}.sp{justify-content:space-between}
-button{font:inherit;color:inherit;cursor:pointer}
-.btn{background:var(--acc);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:600}.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
-button:focus-visible,input:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
-input,select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;width:100%}
-.bar{height:10px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s}
-.task{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.task:first-of-type{border-top:0}
-.chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--acc);background:none;flex:none}.done .chk{background:var(--acc2);border-color:var(--acc2)}.done b{text-decoration:line-through;opacity:.55}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line)}
-nav button{flex:1;max-width:110px;background:none;border:0;border-radius:14px;padding:8px 4px;color:var(--mute);font-size:.82rem}nav button[aria-current=true]{color:var(--acc);background:var(--line);font-weight:600}
-.orb{width:150px;height:150px;border-radius:50%;margin:20px auto;border:0;background:radial-gradient(circle at 35% 30%,#fff9,transparent 40%),linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 0 60px var(--acc);color:#fff;font-weight:800;font-size:1rem}
-.orb.on{animation:p 1.2s ease-in-out infinite}@keyframes p{50%{transform:scale(1.1);box-shadow:0 0 100px var(--acc2)}}@media(prefers-reduced-motion:reduce){.orb.on{animation:none}}
-.msg{max-width:85%;padding:10px 14px;border-radius:18px;margin:8px 0;white-space:pre-wrap}.me{margin-left:auto;background:var(--acc);color:#fff}.ai{background:var(--card);border:1px solid var(--line)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:.88rem}
-.big{font-size:3.4rem;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
-.step{padding:8px 0 8px 18px;border-left:3px solid var(--acc2);margin-left:6px}.step.d{border-color:var(--acc)}
-.sw{display:flex;gap:8px;align-items:center}
-</style></head><body><main id="app"></main>
-<nav id="nav"></nav>
-<script>
-const $=s=>document.querySelector(s);
-const defaults={name:"Khushi",mentor:"Nova",memOn:true,tasks:[
-{id:1,t:"React practice",time:"09:00",dur:60,done:false},{id:2,t:"Break",time:"10:00",dur:15,done:false},
-{id:3,t:"Interview preparation",time:"10:15",dur:45,done:false},{id:4,t:"Read about Next.js routing",time:"15:00",dur:30,done:false}],
-mem:[{id:1,k:"Goal",v:"Become a React developer",why:"You told me this in onboarding"}],chat:[],focusMin:0,
-goals:[["HTML/CSS",1],["JavaScript",1],["React",0],["TypeScript",0],["Next.js",0],["Projects",0],["Interview prep",0],["Job applications",0]]};
-let S;try{S=JSON.parse(localStorage.getItem("nivora"))||defaults}catch(e){S=defaults}
-const save=()=>{try{localStorage.setItem("nivora",JSON.stringify(S))}catch(e){}};
-let tab="home",timer=null,left=600,listening=false;
-const tabs=[["home","Home"],["mentor","Mentor"],["focus","Focus"],["goals","Goals"],["me","Profile"]];
-const pct=()=>Math.round(S.tasks.filter(t=>t.done).length/S.tasks.length*100)||0;
-const nowM=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
-const tm=t=>{const[a,b]=t.time.split(":");return +a*60+ +b};
-function nextTask(){const o=S.tasks.filter(t=>!t.done);return o.find(t=>tm(t)+t.dur>nowM())||o[0]}
-function greet(){const h=new Date().getHours();return h<12?"Good morning":h<18?"Good afternoon":"Good evening"}
-function reply(q){const l=q.toLowerCase(),n=nextTask();
- let m=l.match(/remember(?: that)? (.+)/);
- if(m){if(!S.memOn)return"Memory is switched off, so I won't save that. You can turn it on in Profile.";S.mem.push({id:Date.now(),k:"Note",v:m[1],why:"You asked me to remember it on "+new Date().toLocaleDateString()});save();return"Saved to your vault: \""+m[1]+"\". You can edit or delete it in Profile any time."}
- m=l.match(/(?:completed|finished|done with) (.+)/);
- if(m){const t=S.tasks.find(t=>l.includes(t.t.toLowerCase().split(" ")[0]));if(t){t.done=true;save();return"Marked \""+t.t+"\" complete. That's "+pct()+"% of today. Nice work."}}
- if(/missed|skipped/.test(l))return"That's okay. Want me to move it to 7:30 PM, or leave today's plan as it is? Your call.";
- if(/what should i do|what now|next/.test(l))return n?"Right now: "+n.t+" ("+n.dur+" min, planned for "+n.time+"). Want to start a 10-minute focus session on it?":"Everything planned is done. Rest, or pick one small thing for tomorrow?";
- if(/procrastinat|lazy|don'?t want|can'?t start/.test(l))return"No guilt here. What's stopping you: confusion, boredom, tiredness, or the task feels too big?\n\nWhichever it is, try only 10 minutes. Open the file and do the very first small thing. I'll stay with you. (Tap Focus to start.)";
- if(/goal/.test(l)){const g=S.mem.filter(x=>x.k==="Goal");return g.length?"Here's what you've told me: "+g.map(x=>x.v).join("; ")+".":"You haven't saved a goal yet. Say \"remember that I want to…\" and I'll keep it."}
- if(/not good enough|failed|nervous|anxious|overwhelm|sad/.test(l))return"That sounds heavy, and it makes sense to feel it. Let's slow down. What happened, in one sentence? Then we'll pick one small thing you can do next.\n\nIf this feeling stays strong, talking to someone you trust or a professional can really help. I'm a mentor, not a replacement for that.";
- if(/hi|hello|hey/.test(l.split(" ")[0]))return"Hi "+S.name+". I'm here. What's going on?";
- return"I'm not sure I got that. Are you looking to plan, focus, learn something, or just talk it through? (For live news or places I'd need a connected search service, and I'd tell you when I'm using it.)"}
-function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);speechSynthesis.speak(u)}catch(e){}}
-function send(q){if(!q.trim())return;S.chat.push({r:"me",t:q});const a=reply(q);S.chat.push({r:"ai",t:a});save();render();if(window._speak)say(a)}
-function listen(){const R=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!R){alert("Voice input isn't supported in this browser. Type instead.");return}
- const r=new R();r.lang="en-US";r.onstart=()=>{listening=true;window._speak=true;render()};
- r.onresult=e=>{listening=false;send(e.results[0][0].transcript)};r.onerror=r.onend=()=>{if(listening){listening=false;render()}};try{r.start()}catch(e){}}
-function toggle(id){const t=S.tasks.find(t=>t.id===id);t.done=!t.done;save();render()}
-function startFocus(){if(timer)return;timer=setInterval(()=>{left--;if(left<=0){clearInterval(timer);timer=null;S.focusMin+=Math.round(600/60);left=600;save()}render()},1000);render()}
-const mmss=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function view(){
- if(tab==="home"){const n=nextTask();return `<p class="mute"><b style="color:var(--acc);font-size:1.15rem">Nivora</b> · ${greet()}, ${esc(S.name)}</p>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Nivora — your AI mentor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f1f2fb;
+            --card: rgba(255, 255, 255, .72);
+            --ink: #1b2144;
+            --mute: #5d6486;
+            --acc: #5b4ee8;
+            --acc2: #2bb8a8;
+            --line: rgba(27, 33, 68, .1);
+            --g: radial-gradient(900px 500px at 0% -10%, #d9d4ff, transparent), radial-gradient(700px 500px at 100% 0%, #c9f1ec, transparent);
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media(prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f1330;
+                --card: rgba(255, 255, 255, .07);
+                --ink: #eceeff;
+                --mute: #9aa1c9;
+                --acc: #8f84ff;
+                --acc2: #52d6c6;
+                --line: rgba(255, 255, 255, .12);
+                --g: radial-gradient(900px 500px at 0% -10%, #2a2470, transparent), radial-gradient(700px 500px at 100% 0%, #0f4b53, transparent)
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0f1330;
+            --card: rgba(255, 255, 255, .07);
+            --ink: #eceeff;
+            --mute: #9aa1c9;
+            --acc: #8f84ff;
+            --acc2: #52d6c6;
+            --line: rgba(255, 255, 255, .12);
+            --g: radial-gradient(900px 500px at 0% -10%, #2a2470, transparent), radial-gradient(700px 500px at 100% 0%, #0f4b53, transparent)
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            background-image: var(--g);
+            background-attachment: fixed;
+            color: var(--ink);
+            font: 16px/1.55 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            min-height: 100vh
+        }
+
+        main {
+            max-width: 1080px;
+            margin: auto;
+            padding: 20px clamp(14px, 4vw, 32px) 110px
+        }
+
+        h1 {
+            font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+            line-height: 1.1;
+            margin: .2em 0 .3em;
+            font-weight: 800;
+            letter-spacing: -.02em
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            margin: 0 0 10px
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 16px;
+            margin: 14px 0
+        }
+
+        .mute {
+            color: var(--mute)
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sp {
+            justify-content: space-between
+        }
+
+        button {
+            font: inherit;
+            color: inherit;
+            cursor: pointer
+        }
+
+        .btn {
+            background: var(--acc);
+            color: #fff;
+            border: 0;
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-weight: 600
+        }
+
+        .btn.alt {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line)
+        }
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid var(--acc2);
+            outline-offset: 2px
+        }
+
+        input,
+        select {
+            font: inherit;
+            color: inherit;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+            width: 100%
+        }
+
+        .bar {
+            height: 10px;
+            border-radius: 9px;
+            background: var(--line);
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--acc), var(--acc2));
+            transition: width .5s
+        }
+
+        .task {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid var(--line)
+        }
+
+        .task:first-of-type {
+            border-top: 0
+        }
+
+        .chk {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--acc);
+            background: none;
+            flex: none
+        }
+
+        .done .chk {
+            background: var(--acc2);
+            border-color: var(--acc2)
+        }
+
+        .done b {
+            text-decoration: line-through;
+            opacity: .55
+        }
+
+        nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+            background: var(--card);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid var(--line)
+        }
+
+        nav button {
+            flex: 1;
+            max-width: 110px;
+            background: none;
+            border: 0;
+            border-radius: 14px;
+            padding: 8px 4px;
+            color: var(--mute);
+            font-size: .82rem
+        }
+
+        nav button[aria-current=true] {
+            color: var(--acc);
+            background: var(--line);
+            font-weight: 600
+        }
+
+        .orb {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 0;
+            background: radial-gradient(circle at 35% 30%, #fff9, transparent 40%), linear-gradient(135deg, var(--acc), var(--acc2));
+            box-shadow: 0 0 60px var(--acc);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem
+        }
+
+        .orb.on {
+            animation: p 1.2s ease-in-out infinite
+        }
+
+        @keyframes p {
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 100px var(--acc2)
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .orb.on {
+                animation: none
+            }
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            margin: 8px 0;
+            white-space: pre-wrap
+        }
+
+        .me {
+            margin-left: auto;
+            background: var(--acc);
+            color: #fff
+        }
+
+        .ai {
+            background: var(--card);
+            border: 1px solid var(--line)
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            background: var(--card);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: .88rem
+        }
+
+        .big {
+            font-size: 3.4rem;
+            font-weight: 800;
+            text-align: center;
+            font-variant-numeric: tabular-nums
+        }
+
+        .step {
+            padding: 8px 0 8px 18px;
+            border-left: 3px solid var(--acc2);
+            margin-left: 6px
+        }
+
+        .step.d {
+            border-color: var(--acc)
+        }
+
+        .sw {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        h1,
+        h2,
+        .big,
+        .orb,
+        nav button,
+        .brand {
+            font-family: 'Sora', 'Plus Jakarta Sans', system-ui, sans-serif
+        }
+
+        .btn,
+        .me,
+        .chip[aria-pressed=true] {
+            color: var(--onacc, #fff)
+        }
+
+        .chip[aria-pressed=true] {
+            background: var(--acc);
+            border-color: var(--acc)
+        }
+
+        .sw {
+            flex-wrap: wrap
+        }
+
+        .swb {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            padding: 0
+        }
+
+        .swb[aria-pressed=true] {
+            border-color: var(--ink)
+        }
+
+        .cols {
+            display: grid;
+            gap: 0 16px
+        }
+
+        .cols>.btn {
+            grid-column: 1/-1
+        }
+
+        .brand {
+            display: none;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--acc);
+            padding: 6px 14px 18px
+        }
+
+        label.mute {
+            display: block;
+            margin: 10px 0 4px;
+            font-size: .9rem
+        }
+
+        @media(min-width:760px) {
+            .cols {
+                grid-template-columns: 1fr 1fr;
+                align-items: start
+            }
+        }
+
+        @media(min-width:900px) {
+            nav {
+                left: 0;
+                right: auto;
+                top: 0;
+                bottom: 0;
+                width: 220px;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 6px;
+                padding: 24px 14px;
+                border-top: 0;
+                border-right: 1px solid var(--line)
+            }
+
+            nav button {
+                max-width: none;
+                flex: none;
+                text-align: left;
+                padding: 12px 14px;
+                font-size: .95rem
+            }
+
+            .brand {
+                display: block
+            }
+
+            main {
+                margin-left: 220px;
+                max-width: none;
+                padding: 32px 40px
+            }
+
+            .wrap {
+                max-width: 980px;
+                margin: auto
+            }
+        }
+
+        .t-mentor,
+        .t-goals,
+        .t-focus,
+        .t-settings {
+            max-width: 720px
+        }
+
+        @media(max-width:400px) {
+            nav button {
+                font-size: .68rem;
+                padding: 8px 1px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main id="app"></main>
+    <nav id="nav"></nav>
+    <script>
+        const $ = s => document.querySelector(s);
+        const defaults = {
+            name: "Khushi", mentor: "Nivora", theme: { pal: 0, mode: "auto" }, memOn: true, tasks: [
+                { id: 1, t: "React practice", time: "09:00", dur: 60, done: false }, { id: 2, t: "Break", time: "10:00", dur: 15, done: false },
+                { id: 3, t: "Interview preparation", time: "10:15", dur: 45, done: false }, { id: 4, t: "Read about Next.js routing", time: "15:00", dur: 30, done: false }],
+            mem: [{ id: 1, k: "Goal", v: "Become a React developer", why: "You told me this in onboarding" }], chat: [], focusMin: 0,
+            goals: [["HTML/CSS", 1], ["JavaScript", 1], ["React", 0], ["TypeScript", 0], ["Next.js", 0], ["Projects", 0], ["Interview prep", 0], ["Job applications", 0]]
+        };
+        let S; try { S = JSON.parse(localStorage.getItem("nivora")) || defaults } catch (e) { S = defaults }
+        const save = () => { try { localStorage.setItem("nivora", JSON.stringify(S)) } catch (e) { } };
+        if (!S.theme) S.theme = { pal: 0, mode: "auto" }; if (S.mentor === "Nova") S.mentor = "Nivora";
+        const PAL = [{ n: "Aurora", a: ["#5b4ee8", "#8f84ff"], b: ["#2bb8a8", "#52d6c6"], g: [["#d9d4ff", "#c9f1ec"], ["#2a2470", "#0f4b53"]] }, { n: "Ocean", a: ["#0b6fd6", "#5aa9ff"], b: ["#12b5cb", "#4fd8ea"], g: [["#cfe6ff", "#c8f3f8"], ["#0c2f5c", "#0b4452"]] }, { n: "Sunset", a: ["#d94a30", "#ff8a6b"], b: ["#e8962a", "#ffc46b"], g: [["#ffd9cf", "#ffecc9"], ["#5a2216", "#5a3c10"]] }, { n: "Forest", a: ["#2f8a4f", "#6fd08c"], b: ["#8fae2f", "#c4de6b"], g: [["#d3f0dc", "#eaf2c6"], ["#133a22", "#33410f"]] }, { n: "Rose", a: ["#d6336c", "#ff7aa8"], b: ["#9c5be8", "#c39bff"], g: [["#ffd6e4", "#e8d9ff"], ["#5a1230", "#3a1a63"]] }, { n: "Graphite", a: ["#3b4252", "#aeb7cc"], b: ["#6b7a99", "#8795b8"], g: [["#e3e6ee", "#d7dbe6"], ["#262b38", "#1b1f2b"]] }];
+        function applyTheme() { const t = S.theme, p = PAL[t.pal] || PAL[0], d = t.mode === "dark" || (t.mode === "auto" && matchMedia("(prefers-color-scheme: dark)").matches), r = document.documentElement, i = d ? 1 : 0, y = r.style; r.dataset.theme = d ? "dark" : "light"; y.setProperty("--acc", p.a[i]); y.setProperty("--acc2", p.b[i]); y.setProperty("--onacc", d ? "#10122b" : "#fff"); y.setProperty("--g", "radial-gradient(900px 500px at 0% -10%," + p.g[i][0] + ",transparent),radial-gradient(700px 500px at 100% 0%," + p.g[i][1] + ",transparent)") }
+        try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme) } catch (e) { }
+        let tab = "home", timer = null, left = 600, listening = false;
+        const tabs = [["home", "Home"], ["mentor", "Mentor"], ["focus", "Focus"], ["goals", "Goals"], ["me", "Profile"], ["settings", "Settings"]];
+        const pct = () => Math.round(S.tasks.filter(t => t.done).length / S.tasks.length * 100) || 0;
+        const nowM = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes() };
+        const tm = t => { const [a, b] = t.time.split(":"); return +a * 60 + +b };
+        function nextTask() { const o = S.tasks.filter(t => !t.done); return o.find(t => tm(t) + t.dur > nowM()) || o[0] }
+        function greet() { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening" }
+        function reply(q) {
+            const l = q.toLowerCase(), n = nextTask();
+            let m = l.match(/remember(?: that)? (.+)/);
+            if (m) { if (!S.memOn) return "Memory is switched off, so I won't save that. You can turn it on in Profile."; S.mem.push({ id: Date.now(), k: "Note", v: m[1], why: "You asked me to remember it on " + new Date().toLocaleDateString() }); save(); return "Saved to your vault: \"" + m[1] + "\". You can edit or delete it in Profile any time." }
+            m = l.match(/(?:completed|finished|done with) (.+)/);
+            if (m) { const t = S.tasks.find(t => l.includes(t.t.toLowerCase().split(" ")[0])); if (t) { t.done = true; save(); return "Marked \"" + t.t + "\" complete. That's " + pct() + "% of today. Nice work." } }
+            if (/missed|skipped/.test(l)) return "That's okay. Want me to move it to 7:30 PM, or leave today's plan as it is? Your call.";
+            if (/what should i do|what now|next/.test(l)) return n ? "Right now: " + n.t + " (" + n.dur + " min, planned for " + n.time + "). Want to start a 10-minute focus session on it?" : "Everything planned is done. Rest, or pick one small thing for tomorrow?";
+            if (/procrastinat|lazy|don'?t want|can'?t start/.test(l)) return "No guilt here. What's stopping you: confusion, boredom, tiredness, or the task feels too big?\n\nWhichever it is, try only 10 minutes. Open the file and do the very first small thing. I'll stay with you. (Tap Focus to start.)";
+            if (/goal/.test(l)) { const g = S.mem.filter(x => x.k === "Goal"); return g.length ? "Here's what you've told me: " + g.map(x => x.v).join("; ") + "." : "You haven't saved a goal yet. Say \"remember that I want to…\" and I'll keep it." }
+            if (/not good enough|failed|nervous|anxious|overwhelm|sad/.test(l)) return "That sounds heavy, and it makes sense to feel it. Let's slow down. What happened, in one sentence? Then we'll pick one small thing you can do next.\n\nIf this feeling stays strong, talking to someone you trust or a professional can really help. I'm a mentor, not a replacement for that.";
+            if (/hi|hello|hey/.test(l.split(" ")[0])) return "Hi " + S.name + ". I'm here. What's going on?";
+            return "I'm not sure I got that. Are you looking to plan, focus, learn something, or just talk it through? (For live news or places I'd need a connected search service, and I'd tell you when I'm using it.)"
+        }
+        function say(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); speechSynthesis.speak(u) } catch (e) { } }
+        function send(q) { if (!q.trim()) return; S.chat.push({ r: "me", t: q }); const a = reply(q); S.chat.push({ r: "ai", t: a }); save(); render(); if (window._speak) say(a) }
+        function listen() {
+            const R = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!R) { alert("Voice input isn't supported in this browser. Type instead."); return }
+            const r = new R(); r.lang = "en-US"; r.onstart = () => { listening = true; window._speak = true; render() };
+            r.onresult = e => { listening = false; send(e.results[0][0].transcript) }; r.onerror = r.onend = () => { if (listening) { listening = false; render() } }; try { r.start() } catch (e) { }
+        }
+        function toggle(id) { const t = S.tasks.find(t => t.id === id); t.done = !t.done; save(); render() }
+        function startFocus() { if (timer) return; timer = setInterval(() => { left--; if (left <= 0) { clearInterval(timer); timer = null; S.focusMin += Math.round(600 / 60); left = 600; save() } render() }, 1000); render() }
+        const mmss = s => String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+        const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+        function view() {
+            if (tab === "home") {
+                const n = nextTask(); return `<p class="mute"><b style="color:var(--acc);font-size:1.15rem">Nivora</b> · ${greet()}, ${esc(S.name)}</p>
  <h1>You don't have to finish everything today. Just the next step.</h1>
- <div class="card"><h2>Next</h2>${n?`<b>${n.time} · ${esc(n.t)}</b><p class="mute">${n.dur} minutes. Start with just 10.</p><button class="btn" data-go="focus">Start now</button>`:"<b>All planned tasks are done.</b>"}</div>
+<div class="cols"><div class="card"><h2>Next</h2>${n ? `<b>${n.time} · ${esc(n.t)}</b><p class="mute">${n.dur} minutes. Start with just 10.</p><button class="btn" data-go="focus">Start now</button>` : "<b>All planned tasks are done.</b>"}</div>
  <div class="card"><div class="row sp"><h2>Today</h2><span class="mute">${pct()}%</span></div><div class="bar"><i style="width:${pct()}%"></i></div>
- ${S.tasks.map(t=>`<div class="task ${t.done?"done":""}"><button class="chk" data-t="${t.id}" aria-label="Toggle ${esc(t.t)}"></button><div><b>${esc(t.t)}</b><div class="mute">${t.time} · ${t.dur} min</div></div></div>`).join("")}</div>
- <button class="btn" data-go="mentor" style="width:100%;padding:16px">Talk to ${esc(S.mentor)}</button>`}
- if(tab==="mentor")return `<h1>${esc(S.mentor)}</h1><button class="orb ${listening?"on":""}" id="mic" aria-label="Talk to mentor">${listening?"Listening…":"Tap to talk"}</button>
- <p class="mute" style="text-align:center">${S.chat.length?"":"I'm here. What's going on?"}</p>
- <div id="chat">${S.chat.map(m=>`<div class="msg ${m.r}">${esc(m.t)}</div>`).join("")}</div>
- <div class="chips">${["What should I do now?","I'm feeling lazy today","I completed React practice","Remind me what my goal is"].map(c=>`<button class="chip" data-q="${c}">${c}</button>`).join("")}</div>
+ ${S.tasks.map(t => `<div class="task ${t.done ? "done" : ""}"><button class="chk" data-t="${t.id}" aria-label="Toggle ${esc(t.t)}"></button><div><b>${esc(t.t)}</b><div class="mute">${t.time} · ${t.dur} min</div></div></div>`).join("")}</div>
+ <button class="btn" data-go="mentor" style="width:100%;padding:16px">Talk to ${esc(S.mentor)}</button></div>`
+            }
+            if (tab === "mentor") return `<h1>${esc(S.mentor)}</h1><button class="orb ${listening ? "on" : ""}" id="mic" aria-label="Talk to mentor">${listening ? "Listening…" : "Tap to talk"}</button>
+ <p class="mute" style="text-align:center">${S.chat.length ? "" : "I'm here. What's going on?"}</p>
+ <div id="chat">${S.chat.map(m => `<div class="msg ${m.r}">${esc(m.t)}</div>`).join("")}</div>
+ <div class="chips">${["What should I do now?", "I'm feeling lazy today", "I completed React practice", "Remind me what my goal is"].map(c => `<button class="chip" data-q="${c}">${c}</button>`).join("")}</div>
  <form id="f" class="row" style="margin-top:12px"><input id="in" placeholder="Type to ${esc(S.mentor)}" aria-label="Message"><button class="btn">Send</button><button type="button" class="btn alt" id="stop">Stop voice</button></form>`;
- if(tab==="focus")return `<h1>Focus</h1><div class="card"><p class="mute">One task. Ten minutes. No guilt.</p><b>${nextTask()?esc(nextTask().t):"Pick any one small task"}</b>
- <div class="big">${mmss(left)}</div><div class="row"><button class="btn" id="go">${timer?"Running":"Start 10 minutes"}</button><button class="btn alt" id="rs">Reset</button></div></div>
+            if (tab === "focus") return `<h1>Focus</h1><div class="card"><p class="mute">One task. Ten minutes. No guilt.</p><b>${nextTask() ? esc(nextTask().t) : "Pick any one small task"}</b>
+ <div class="big">${mmss(left)}</div><div class="row"><button class="btn" id="go">${timer ? "Running" : "Start 10 minutes"}</button><button class="btn alt" id="rs">Reset</button></div></div>
  <div class="card"><b>${S.focusMin} min</b> <span class="mute">focused in completed sessions</span></div>`;
- if(tab==="goals")return `<h1>Roadmap</h1><p class="mute">Goal: Become a frontend developer. Tap a step to mark it done. Edit it in your own time.</p>
- <div class="card">${S.goals.map((g,i)=>`<div class="step ${g[1]?"d":""}"><button class="chip" data-g="${i}">${g[1]?"Done":"Next"}</button> <b>${g[0]}</b></div>`).join("")}</div>
+            if (tab === "goals") return `<h1>Roadmap</h1><p class="mute">Goal: Become a frontend developer. Tap a step to mark it done. Edit it in your own time.</p>
+ <div class="card">${S.goals.map((g, i) => `<div class="step ${g[1] ? "d" : ""}"><button class="chip" data-g="${i}">${g[1] ? "Done" : "Next"}</button> <b>${g[0]}</b></div>`).join("")}</div>
  <p class="mute">Goal → Milestone → Task → Today's action: the next undone step feeds your daily plan.</p>`;
- return `<h1>Your vault</h1><p class="mute">Your information belongs to you. I only remember what you choose to save.</p>
- <div class="card"><label class="row sp"><b>Memory ${S.memOn?"on":"paused"}</b><button class="btn alt" id="mt">${S.memOn?"Pause":"Turn on"}</button></label></div>
- <div class="card"><h2>Saved memories</h2>${S.mem.length?S.mem.map(m=>`<div class="task"><div style="flex:1"><b>${esc(m.v)}</b><div class="mute">${esc(m.k)} · ${esc(m.why)}</div></div><button class="chip" data-d="${m.id}">Delete</button></div>`).join(""):'<p class="mute">Nothing saved yet. Tell the mentor "remember that…"</p>'}
+            if (tab === "settings") return `<h1>Settings</h1>
+ <div class="card"><h2>Colour theme</h2><div class="sw">${PAL.map((p, i) => `<button class="swb" data-p="${i}" aria-label="${p.n}" aria-pressed="${S.theme.pal === i}" style="background:linear-gradient(135deg,${p.a[0]},${p.b[0]})"></button>`).join("")}</div><p class="mute">${PAL[S.theme.pal].n}</p></div>
+ <div class="card"><h2>Appearance</h2><div class="chips">${["light", "dark", "auto"].map(m => `<button class="chip" data-m="${m}" aria-pressed="${S.theme.mode === m}">${m[0].toUpperCase() + m.slice(1)}</button>`).join("")}</div></div>
+ <div class="card"><h2>Names</h2><label class="mute" for="un">Your name</label><input id="un" value="${esc(S.name)}"><label class="mute" for="mn">Mentor name</label><input id="mn" value="${esc(S.mentor)}"></div>`;
+            return `<h1>Your vault</h1><p class="mute">Your information belongs to you. I only remember what you choose to save.</p>
+ <div class="card"><label class="row sp"><b>Memory ${S.memOn ? "on" : "paused"}</b><button class="btn alt" id="mt">${S.memOn ? "Pause" : "Turn on"}</button></label></div>
+ <div class="cols"><div class="card"><h2>Saved memories</h2>${S.mem.length ? S.mem.map(m => `<div class="task"><div style="flex:1"><b>${esc(m.v)}</b><div class="mute">${esc(m.k)} · ${esc(m.why)}</div></div><button class="chip" data-d="${m.id}">Delete</button></div>`).join("") : '<p class="mute">Nothing saved yet. Tell the mentor "remember that…"</p>'}
  <form id="mf" class="row" style="margin-top:10px"><input id="mi" placeholder="Add a memory" aria-label="New memory"><button class="btn">Save</button></form>
  <button class="btn alt" id="da" style="margin-top:10px">Delete all memories</button></div>
- <div class="card"><h2>Privacy</h2><p class="mute">Stored: your tasks, goals, chat, and saved memories, in this browser only. Not stored: anything you haven't entered. Not connected to any outside service.</p><button class="btn alt" id="ex">Export my data</button> <button class="btn alt" id="th">Switch light/dark</button> <button class="btn alt" id="wipe">Delete everything</button></div>`}
-function render(){$("#app").innerHTML=view();$("#nav").innerHTML=tabs.map(t=>`<button data-go="${t[0]}" ${t[0]===tab?'aria-current="true"':""}>${t[1]}</button>`).join("");
- const a=$("#app");a.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>toggle(+b.dataset.t));
- a.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>send(b.dataset.q));
- a.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{S.goals[b.dataset.g][1]^=1;save();render()});
- a.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{S.mem=S.mem.filter(m=>m.id!=b.dataset.d);save();render()});
- document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{tab=b.dataset.go;render();scrollTo(0,0)});
- const on=(id,f)=>{const e=$(id);if(e)e.onclick=f};
- on("#mic",listen);on("#stop",()=>{window._speak=false;try{speechSynthesis.cancel()}catch(e){}});
- on("#go",startFocus);on("#rs",()=>{clearInterval(timer);timer=null;left=600;render()});
- on("#mt",()=>{S.memOn=!S.memOn;save();render()});on("#da",()=>{if(confirm("Delete all memories?")){S.mem=[];save();render()}});
- on("#wipe",()=>{if(confirm("Delete everything?")){S=JSON.parse(JSON.stringify(defaults));save();render()}});
- on("#th",()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==="dark"?"light":"dark"});
- on("#ex",()=>{const w=window.open("","_blank");if(w)w.document.write("<pre>"+esc(JSON.stringify(S,null,2))+"</pre>")});
- const f=$("#f");if(f)f.onsubmit=e=>{e.preventDefault();const v=$("#in").value;send(v)};
- const mf=$("#mf");if(mf)mf.onsubmit=e=>{e.preventDefault();const v=$("#mi").value.trim();if(v&&S.memOn){S.mem.push({id:Date.now(),k:"Note",v,why:"You added it yourself"});save();render()}};
- const c=$("#chat");if(c&&c.lastChild)c.lastChild.scrollIntoView({block:"nearest"})}
-render();
-</script></body></html>
+ <div class="card"><h2>Privacy</h2><p class="mute">Stored: your tasks, goals, chat, and saved memories, in this browser only. Not stored: anything you haven't entered. Not connected to any outside service.</p><button class="btn alt" id="ex">Export my data</button> <button class="btn alt" id="wipe">Delete everything</button></div></div>`}
+        function render() {
+            applyTheme(); $("#app").innerHTML = '<div class="wrap t-' + tab + '">' + view() + "</div>"; $("#nav").innerHTML = '<div class="brand">Nivora</div>' + tabs.map(t => `<button data-go="${t[0]}" ${t[0] === tab ? 'aria-current="true"' : ""}>${t[1]}</button>`).join("");
+            const a = $("#app"); a.querySelectorAll("[data-t]").forEach(b => b.onclick = () => toggle(+b.dataset.t));
+            a.querySelectorAll("[data-q]").forEach(b => b.onclick = () => send(b.dataset.q));
+            a.querySelectorAll("[data-p]").forEach(b => b.onclick = () => { S.theme.pal = +b.dataset.p; save(); render() });
+            a.querySelectorAll("[data-m]").forEach(b => b.onclick = () => { S.theme.mode = b.dataset.m; save(); render() });
+            const un = $("#un"), mn = $("#mn"); if (un) un.onchange = () => { S.name = un.value.trim() || S.name; save() }; if (mn) mn.onchange = () => { S.mentor = mn.value.trim() || "Nivora"; save() };
+            a.querySelectorAll("[data-g]").forEach(b => b.onclick = () => { S.goals[b.dataset.g][1] ^= 1; save(); render() });
+            a.querySelectorAll("[data-d]").forEach(b => b.onclick = () => { S.mem = S.mem.filter(m => m.id != b.dataset.d); save(); render() });
+            document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { tab = b.dataset.go; render(); scrollTo(0, 0) });
+            const on = (id, f) => { const e = $(id); if (e) e.onclick = f };
+            on("#mic", listen); on("#stop", () => { window._speak = false; try { speechSynthesis.cancel() } catch (e) { } });
+            on("#go", startFocus); on("#rs", () => { clearInterval(timer); timer = null; left = 600; render() });
+            on("#mt", () => { S.memOn = !S.memOn; save(); render() }); on("#da", () => { if (confirm("Delete all memories?")) { S.mem = []; save(); render() } });
+            on("#wipe", () => { if (confirm("Delete everything?")) { S = JSON.parse(JSON.stringify(defaults)); save(); render() } });
+            on("#th", () => { const r = document.documentElement; r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark" });
+            on("#ex", () => { const w = window.open("", "_blank"); if (w) w.document.write("<pre>" + esc(JSON.stringify(S, null, 2)) + "</pre>") });
+            const f = $("#f"); if (f) f.onsubmit = e => { e.preventDefault(); const v = $("#in").value; send(v) };
+            const mf = $("#mf"); if (mf) mf.onsubmit = e => { e.preventDefault(); const v = $("#mi").value.trim(); if (v && S.memOn) { S.mem.push({ id: Date.now(), k: "Note", v, why: "You added it yourself" }); save(); render() } };
+            const c = $("#chat"); if (c && c.lastChild) c.lastChild.scrollIntoView({ block: "nearest" })
+        }
+        render();
+    </script>
+</body>
+
+</html>
