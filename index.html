@@ -593,49 +593,396 @@
             font: 800 2.2rem 'Sora', sans-serif;
             color: var(--acc)
         }
+
+        .giant {
+            display: block;
+            width: 100%;
+            padding: 28px 20px;
+            font: 700 clamp(1.2rem, 4vw, 1.6rem) 'Sora', sans-serif;
+            border-radius: 28px;
+            margin: 18px 0;
+            box-shadow: 0 16px 44px -14px var(--acc)
+        }
+
+        .move {
+            border-color: var(--acc)
+        }
+
+        .mv {
+            font: 700 clamp(1.25rem, 3.6vw, 1.6rem)/1.3 'Sora', sans-serif;
+            margin: 6px 0
+        }
+
+        .tf select,
+        .tf input[type=date] {
+            width: auto;
+            flex: 1 1 110px
+        }
+
+        .fab {
+            position: fixed;
+            right: 16px;
+            bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+            z-index: 5;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border: 0;
+            border-radius: 999px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--acc), var(--acc2));
+            color: var(--onacc, #fff);
+            font: 700 1rem 'Sora', sans-serif;
+            box-shadow: 0 12px 30px -8px var(--acc)
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        @media(min-width:900px) {
+            .fab {
+                bottom: 28px;
+                right: 32px
+            }
+        }
+
+        .t-me .cols {
+            margin-top: 0
+        }
+
+        .gpath {
+            padding: 14px 0;
+            border-top: 1px solid var(--line)
+        }
+
+        .gpath:first-of-type {
+            border-top: 0
+        }
+
+        .path {
+            list-style: none;
+            margin: 10px 0;
+            padding: 0;
+            text-align: left
+        }
+
+        .path li {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 0
+        }
+
+        .path li:not(:last-child)::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 30px;
+            bottom: -9px;
+            width: 2px;
+            background: var(--line)
+        }
+
+        .path .dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--acc);
+            background: var(--bg);
+            padding: 0;
+            flex: none;
+            position: relative;
+            z-index: 1;
+            display: block
+        }
+
+        .path span {
+            flex: 1
+        }
+
+        .path .d .dot {
+            background: var(--acc2);
+            border-color: var(--acc2)
+        }
+
+        .path .d span {
+            opacity: .55;
+            text-decoration: line-through
+        }
+
+        .path .c .dot {
+            background: var(--acc);
+            box-shadow: 0 0 0 5px var(--line)
+        }
+
+        .path em {
+            font-style: normal;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--acc)
+        }
+
+        .path .fin {
+            color: var(--mute);
+            font-family: 'Sora', sans-serif
+        }
+
+        textarea {
+            font: inherit;
+            color: inherit;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+            width: 100%;
+            resize: vertical
+        }
+
+        .fcard {
+            border-color: var(--acc)
+        }
+
+        .fq {
+            font: 600 1.1rem/1.45 'Sora', sans-serif;
+            margin: 8px 0
+        }
+
+        .fgrid {
+            gap: 0 24px;
+            margin-top: 6px
+        }
+
+        .fgrid h3 {
+            font: 700 .95rem 'Sora', sans-serif;
+            color: var(--acc);
+            margin: 14px 0 4px
+        }
+
+        .fit {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-top: 1px solid var(--line)
+        }
+
+        .fm {
+            color: var(--acc);
+            font-weight: 600;
+            margin: 6px 0
+        }
+
+        .chain {
+            list-style: none;
+            margin: 10px 0;
+            padding: 0;
+            text-align: left
+        }
+
+        .chain li {
+            position: relative;
+            padding: 0 0 8px 20px
+        }
+
+        .chain li::before {
+            content: "";
+            position: absolute;
+            left: 2px;
+            top: .5em;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--acc)
+        }
+
+        .chain li:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 1.4em;
+            bottom: -.2em;
+            width: 2px;
+            background: var(--line)
+        }
+
+        .chain small {
+            color: var(--mute);
+            margin-right: 6px
+        }
+
+        .chain li:last-child {
+            font-weight: 700
+        }
+
+        .t-focus .chain {
+            display: inline-block
+        }
+
+        .path .ms {
+            margin-left: 36px;
+            padding: 4px 0
+        }
+
+        .path .ms::before {
+            display: none
+        }
+
+        .path .ms .dot {
+            width: 18px;
+            height: 18px
+        }
+
+        .tf select#tl {
+            flex: 1 1 100%
+        }
     </style>
 </head>
 
 <body>
     <main id="app"></main>
     <nav id="nav"></nav>
+    <button id="fab" class="fab" hidden></button>
     <script>
         const $ = s => document.querySelector(s);
         const defaults = { name: "", mentor: "Nivora", theme: { pal: 0, mode: "auto" }, memOn: true, tasks: [], mem: [], chat: [], focusMin: 0, sessions: 0, goal: "", goals: [] };
         let S; try { S = JSON.parse(localStorage.getItem("nivora2")) || defaults } catch (e) { S = defaults }
-        const save = () => { try { localStorage.setItem("nivora2", JSON.stringify(S)) } catch (e) { } };
+        const save = () => { try { cascade() } catch (e) { } try { localStorage.setItem("nivora2", JSON.stringify(S)) } catch (e) { } };
+        const AREAS = ["Career", "Health", "Learning", "Finance", "Personal"];
+        function ensureLife() { if (!S.off) S.off = []; if (!S.future) S.future = { text: "", items: [], at: 0 }; if (!S.life) { S.life = {}; AREAS.forEach(a => S.life[a] = []); if (S.goal) S.life.Career.push({ id: 1, t: S.goal, steps: S.goals || [] }); S.goal = ""; S.goals = [] } AREAS.forEach(a => S.life[a].forEach(g => g.steps.forEach(st => { if (!st[2]) st[2] = []; if (!st[3]) st[3] = uid() }))) }
+        function uid() { return Date.now() + Math.floor(Math.random() * 1e6) }
+        ensureLife();
+        const lifeGoals = () => AREAS.flatMap(a => S.life[a].map(g => g.t + " (" + a + ")"));
+        function nextStep() { for (const a of AREAS) for (const g of S.life[a]) { const j = g.steps.findIndex(x => !x[1]); if (j > -1) { const st = g.steps[j], m = (st[2] || []).find(x => !x[1]); return { a, g, j, s: m ? m[0] : st[0], lk: g.id + ":" + st[3] + (m ? ":" + m[2] : "") } } } return null }
+        let area = "Career";
+        if (!S.off) S.off = []; S.mem.forEach(m => { if (m.k === "Goal") m.k = "Goals"; if (m.k === "Note") m.k = "Notes" });
         if (!S.theme) S.theme = { pal: 0, mode: "auto" }; if (S.mentor === "Nova") S.mentor = "Nivora";
         const PAL = [{ n: "Aurora", a: ["#5b4ee8", "#8f84ff"], b: ["#2bb8a8", "#52d6c6"], g: [["#d9d4ff", "#c9f1ec"], ["#2a2470", "#0f4b53"]] }, { n: "Ocean", a: ["#0b6fd6", "#5aa9ff"], b: ["#12b5cb", "#4fd8ea"], g: [["#cfe6ff", "#c8f3f8"], ["#0c2f5c", "#0b4452"]] }, { n: "Sunset", a: ["#d94a30", "#ff8a6b"], b: ["#e8962a", "#ffc46b"], g: [["#ffd9cf", "#ffecc9"], ["#5a2216", "#5a3c10"]] }, { n: "Forest", a: ["#2f8a4f", "#6fd08c"], b: ["#8fae2f", "#c4de6b"], g: [["#d3f0dc", "#eaf2c6"], ["#133a22", "#33410f"]] }, { n: "Rose", a: ["#d6336c", "#ff7aa8"], b: ["#9c5be8", "#c39bff"], g: [["#ffd6e4", "#e8d9ff"], ["#5a1230", "#3a1a63"]] }, { n: "Graphite", a: ["#3b4252", "#aeb7cc"], b: ["#6b7a99", "#8795b8"], g: [["#e3e6ee", "#d7dbe6"], ["#262b38", "#1b1f2b"]] }];
         function applyTheme() { const t = S.theme, p = PAL[t.pal] || PAL[0], d = t.mode === "dark" || (t.mode === "auto" && matchMedia("(prefers-color-scheme: dark)").matches), r = document.documentElement, i = d ? 1 : 0, y = r.style; r.dataset.theme = d ? "dark" : "light"; y.setProperty("--acc", p.a[i]); y.setProperty("--acc2", p.b[i]); y.setProperty("--onacc", d ? "#10122b" : "#fff"); y.setProperty("--g", "radial-gradient(900px 500px at 0% -10%," + p.g[i][0] + ",transparent),radial-gradient(700px 500px at 100% 0%," + p.g[i][1] + ",transparent)") }
         try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme) } catch (e) { }
         let tab = "home", timer = null, left = 600, fdur = 10, listening = false;
-        const tabs = [["home", "Home"], ["mentor", "Mentor"], ["focus", "Focus"], ["goals", "Goals"], ["me", "Profile"], ["settings", "Settings"]];
+        const tabs = [["home", "Home"], ["mentor", "Mentor"], ["focus", "Focus"], ["goals", "Map"], ["me", "Brain"], ["settings", "Settings"]];
         const pct = () => Math.round(S.tasks.filter(t => t.done).length / S.tasks.length * 100) || 0;
         const nowM = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes() };
         const tm = t => { const [a, b] = t.time.split(":"); return +a * 60 + +b };
         function nextTask() { const o = S.tasks.filter(t => !t.done); return o.find(t => tm(t) + t.dur > nowM()) || o[0] }
         function greet() { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening" }
         function reply(q) {
-            const l = q.toLowerCase(), n = nextTask();
-            let m = l.match(/remember(?: that)? (.+)/);
-            if (m) { if (!S.memOn) return "Memory is switched off, so I won't save that. You can turn it on in Profile."; S.mem.push({ id: Date.now(), k: "Note", v: m[1], why: "You asked me to remember it on " + new Date().toLocaleDateString() }); save(); return "Saved to your vault: \"" + m[1] + "\". You can edit or delete it in Profile any time." }
+            q = q.replace(/^(hey |hi |hello )?nivora[,!.\s]*/i, "") || q; lastAct = null; const l = q.toLowerCase(), n = nextTask();
+            let m = q.match(/^(?:please )?remember (?:that )?(.+)/i);
+            if (m) { if (!S.memOn) return "Memory is switched off, so I won't save that. You can turn it on in Profile."; const c = cat(m[1]); if (S.off.includes(c)) return "You've turned off \"" + c + "\" in your Brain, so I didn't save that."; S.mem.push({ id: Date.now(), k: c, v: m[1], why: "You asked me to remember it on " + new Date().toLocaleDateString() }); save(); return "Saved under " + c + " in your Brain: \"" + m[1] + "\". You can edit or delete it there any time." }
+            if (/priorit/.test(l)) {
+                const L = [], add = (h, a) => { if (a.length) L.push(h + ":\n- " + a.join("\n- ")) }, today = dstr(new Date());
+                add("Goals", byCat("Goals").concat(lifeGoals())); add("Important", byCat("Important")); add("Plans", byCat("Plans"));
+                add("Tasks needing attention", S.tasks.filter(t => !t.done && (t.pri === "high" || (t.due && t.due <= today))).map(t => t.t));
+                return L.length ? "Here's what you've chosen to save and plan:\n\n" + L.join("\n\n") + "\n\nWant me to pick your next move from this?" : "I don't have any priorities for you yet. Save a goal or something important in your Brain, or add a high-priority task, and I'll keep track."
+            }
+            if (/future me|my future|12 months|where am i going/.test(l)) { const f = S.future; if (!f.text) return "You haven't described your future yet. Tell me where you want to be 12 months from now on Home or in the Map tab, and I'll keep it in view."; const L = FC.map(c => { const it = f.items.filter(i => i.k === c).map(i => i.v); return it.length ? c + ":\n- " + it.join("\n- ") : "" }).filter(Boolean); return "Your Future Me, day " + Math.max(1, Math.floor((Date.now() - f.at) / 864e5) + 1) + " of 365:\n\n" + L.join("\n\n") }
+            if (/my brain|what do you know(?: about me)?[?.!]*$|what (?:have|did) i save[d]?[?.!]*$/.test(l)) { const L = CATS.map(c => { const it = byCat(c); return it.length ? c + ":\n- " + it.join("\n- ") : "" }).filter(Boolean); return L.length ? "Here's everything you've chosen to save:\n\n" + L.join("\n\n") : "Your Brain is empty. Only what you choose to save will ever appear there." }
+            m = l.match(/(?:know|save|saved|remember).*? about (.+?)[?.!]*$/);
+            if (m) { const ws = m[1].replace(/\b(my|the|a|an)\b/g, "").split(/\s+/).filter(w => w.length > 2), hit = S.mem.filter(x => ws.some(w => (x.v + " " + x.k).toLowerCase().includes(w))); return hit.length ? "This is what you saved about that:\n- " + hit.map(x => x.v + " (" + x.k + ")").join("\n- ") : "I don't have anything saved about that. Only what you choose to save is available to me." }
             m = l.match(/(?:completed|finished|done with) (.+)/);
             if (m) { const t = S.tasks.find(t => l.includes(t.t.toLowerCase().split(" ")[0])); if (t) { t.done = true; save(); return "Marked \"" + t.t + "\" complete. That's " + pct() + "% of today. Nice work." } return "I couldn't find that task in today's plan. Add it on Home first." }
             if (/missed|skipped/.test(l)) return "That's okay. Want me to move it to 7:30 PM, or leave today's plan as it is? Your call.";
-            if (/what should i do|what now|next/.test(l)) return n ? "Right now: " + n.t + " (" + n.dur + " min, planned for " + n.time + "). Want to start a 10-minute focus session on it?" : (S.tasks.length ? "Everything planned is done. Rest, or pick one small thing for tomorrow?" : "You haven't planned anything yet. Add a task on Home and I'll guide you through it.");
-            if (/procrastinat|lazy|don'?t want|can'?t start/.test(l)) return "No guilt here. What's stopping you: confusion, boredom, tiredness, or the task feels too big?\n\nWhichever it is, try only 10 minutes. Open the file and do the very first small thing. I'll stay with you. (Tap Focus to start.)";
-            if (/goal/.test(l)) { const g = S.mem.filter(x => x.k === "Goal"); if (S.goal) g.push({ v: S.goal }); return g.length ? "Here's what you've told me: " + g.map(x => x.v).join("; ") + "." : "You haven't saved a goal yet. Say \"remember that I want to…\" and I'll keep it." }
+            if (/what should i do|what now|next/.test(l)) { pick = suggest([]); skip = []; lastAct = pick.act ? { mins: pick.mins, id: pick.id, label: pick.label || "" } : null; return pick.title + (pick.why.length ? " (" + pick.why.join(", ") + ")" : "") + (pick.link ? "\n\n" + pick.link : "") }
+            if (/procrastinat|lazy|don'?t want|don'?t feel like|can'?t start|not in the mood|no motivation/.test(l)) { const m2 = l.match(/(?:feel like|want to|wanna|mood to) (.+?)[.!?]*$/), what = m2 ? m2[1] : ""; lastAct = { mins: 5, label: what }; return "Okay. No guilt. Forget the long session. Let's do five minutes together" + (what ? " of " + what : "") + ". Open what you need and do just the first small step. I'll stay with you.\n\nIf it still feels heavy afterwards, tell me what's stopping you: confusion, boredom, tiredness, or the task feels too big." }
+            if (/goal/.test(l)) { const g = S.mem.filter(x => x.k === "Goal"); lifeGoals().forEach(x => g.push({ v: x })); return g.length ? "Here's what you've told me: " + g.map(x => x.v).join("; ") + "." : "You haven't saved a goal yet. Say \"remember that I want to…\" and I'll keep it." }
             if (/not good enough|failed|nervous|anxious|overwhelm|sad/.test(l)) return "That sounds heavy, and it makes sense to feel it. Let's slow down. What happened, in one sentence? Then we'll pick one small thing you can do next.\n\nIf this feeling stays strong, talking to someone you trust or a professional can really help. I'm a mentor, not a replacement for that.";
             if (/hi|hello|hey/.test(l.split(" ")[0])) return "Hi" + (S.name ? " " + S.name : "") + ". I'm here. What's going on?";
             return "I'm not sure I got that. Are you looking to plan, focus, learn something, or just talk it through? (For live news or places I'd need a connected search service, and I'd tell you when I'm using it.)"
         }
+        const CATS = ["Goals", "Projects", "Plans", "Important", "Ideas", "Notes"];
+        function cat(t) { t = t.toLowerCase(); return /\bideas?\b/.test(t) ? "Ideas" : /interview|deadline|exam|friday|monday|tuesday|wednesday|thursday|saturday|sunday|tomorrow|important|due /.test(t) ? "Important" : /project|portfolio|tracker|\bapp\b/.test(t) ? "Projects" : /\bplan|ielts|switch|roadmap/.test(t) ? "Plans" : /goal|want to|become|improve|learn/.test(t) ? "Goals" : "Notes" }
+        function brainSvg() {
+            const cx = 210, cy = 130; let o = '<svg viewBox="0 0 420 270" role="img" aria-label="Map of what you have saved" style="width:100%;display:block">', n = '';
+            CATS.forEach((c, i) => {
+                const a = -Math.PI / 2 + i * Math.PI / 3, x = cx + 165 * Math.cos(a), y = cy + 88 * Math.sin(a), k = S.mem.filter(m => m.k === c).length, r = 15 + Math.min(14, k * 3);
+                o += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x + '" y2="' + y + '" stroke="var(--acc2)" stroke-opacity=".5" stroke-width="2"/>';
+                n += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="var(--acc)" fill-opacity="' + (k ? .3 : .12) + '" stroke="var(--acc)" stroke-width="2"/><text x="' + x + '" y="' + (y + 5) + '" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">' + k + '</text><text x="' + x + '" y="' + (y + r + 14) + '" text-anchor="middle" font-size="12" fill="var(--mute)">' + c + '</text>'
+            });
+            return o + n + '<circle cx="' + cx + '" cy="' + cy + '" r="28" fill="var(--acc)"/><text x="' + cx + '" y="' + (cy + 5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="var(--onacc,#fff)">You</text></svg>'
+        }
+        function mapSvg() {
+            let o = '<svg viewBox="0 0 440 300" role="group" aria-label="Life map" style="width:100%;display:block"><defs><linearGradient id="fm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--acc)"/><stop offset="1" style="stop-color:var(--acc2)"/></linearGradient></defs>', p = '';
+            AREAS.forEach((a, i) => {
+                const y = 34 + 58 * i, gs = S.life[a], st = gs.flatMap(g => g.steps), pc = st.length ? Math.round(st.filter(x => x[1]).length / st.length * 100) : 0, sel = a === area, tx = sel ? "var(--onacc,#fff)" : "var(--ink)", tm2 = sel ? "var(--onacc,#fff)" : "var(--mute)";
+                o += '<path d="M160 ' + y + ' C250 ' + y + ',250 150,332 150" fill="none" stroke="var(--acc2)" stroke-width="' + (sel ? 4 : 2) + '" stroke-opacity="' + (sel ? .9 : .35) + '"/>';
+                p += '<g data-area="' + a + '" role="button" tabindex="0" aria-label="' + a + ', ' + gs.length + ' goals, ' + pc + '% done" style="cursor:pointer"><rect x="6" y="' + (y - 22) + '" width="154" height="44" rx="22" fill="' + (sel ? "var(--acc)" : "var(--card)") + '" stroke="var(--acc)" stroke-width="1.5"/><text x="26" y="' + (y + 5) + '" font-size="15" font-weight="700" fill="' + tx + '">' + a + '</text><text x="142" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="' + tm2 + '">' + (st.length ? pc + "%" : gs.length + (gs.length === 1 ? " goal" : " goals")) + '</text></g>'
+            });
+            return o + p + '<circle cx="380" cy="150" r="48" fill="url(#fm)"/><text x="380" y="146" text-anchor="middle" font-size="14" font-weight="800" fill="var(--onacc,#fff)">Future</text><text x="380" y="164" text-anchor="middle" font-size="14" font-weight="800" fill="var(--onacc,#fff)">Me</text></svg>'
+        }
+        const FC = ["Career", "Skills", "Financial", "Projects", "Health", "Personal"];
+        function fcat(c) { c = c.toLowerCase(); return /₹|\$|salary|income|\bearn|saving|invest|lpa|money|debt|per month|\/month|financ|lakh/.test(c) ? "Financial" : /project|portfolio|startup|launch|side app|\bbuild\b/.test(c) ? "Projects" : /health|fitness|\bfit\b|gym|weight|running|sleep|exercise|diet|yoga|meditat/.test(c) ? "Health" : /communicat|confiden|habit|relationship|family|mindset|disciplin|routine|friends|speak/.test(c) ? "Personal" : /\bjob\b|career|developer|engineer|manager|promotion|interview|company|designer|\brole\b|freelanc/.test(c) ? "Career" : /react|typescript|javascript|next\.?js|python|skill|learn|english|ielts|course|certif|coding|node|sql|design/.test(c) ? "Skills" : "Personal" }
+        function parseFuture(t) {
+            const out = []; t.split(/\.(?=\s|$)|[\n;!?]+|,\s+(?:and |but |also )?|\s+(?:and then|then)\s+|\s+and\s+(?=(?:i |to )?(?:communicate|improve|become|get|build|learn|earn|save|start|launch|be |work|read|write|exercise|lose|gain|move|switch|crack|clear|achieve)\b)/i).map(x => x.trim().replace(/^(and |also |i want to |i will |i would like to |i'd like to |i wish to |i am |i'm |to )+/i, "")).filter(x => x.length > 2).forEach(c => out.push({ id: Date.now() + out.length, k: fcat(c), v: c[0].toUpperCase() + c.slice(1) }));
+            if (!out.length) out.push({ id: Date.now(), k: "Personal", v: t }); return out
+        }
+        function futureLink(txt) {
+            if (!S.future || !S.future.items.length || !txt) return ""; const ws = txt.toLowerCase().split(/[^a-z0-9.+#]+/).filter(w => w.length >= 4 && !/^(practice|session|study|work|task|time|read|about|spend|minutes|focus)$/.test(w));
+            const hit = S.future.items.find(i => ws.some(w => i.v.toLowerCase().includes(w))); return hit ? "This moves you toward your Future Me: " + hit.v : ""
+        }
+        function futureCard(full) {
+            const f = S.future;
+            if (!f.text) return `<div class="card fcard"><h2>Where do you want to be 12 months from now?</h2><p class="mute">Describe it in your own words. ${esc(S.mentor)} sorts it into areas, and you can fix anything it gets wrong.</p><form id="ff"><textarea id="ft" rows="4" placeholder="e.g. I want to become a frontend developer, learn React, TypeScript and Next.js, build 3 strong portfolio projects, earn ₹60,000 per month and communicate better." aria-label="Your future">${esc(f.draft || "")}</textarea><button class="btn" style="margin-top:10px">Create my Future Me</button></form></div>`;
+            const day = Math.max(1, Math.min(365, Math.floor((Date.now() - f.at) / 864e5) + 1));
+            if (!full) return `<div class="card fcard"><div class="row sp"><h2>Future Me</h2><span class="mute">Day ${day} of 365</span></div><p class="fq">${esc(f.text.length > 150 ? f.text.slice(0, 147) + "…" : f.text)}</p><button class="chip" data-go="goals">Open Future Me</button></div>`;
+            return `<div class="card fcard"><div class="row sp"><h2>Future Me</h2><span class="mute">Day ${day} of 365</span></div><p class="fq">${esc(f.text)}</p><div class="bar"><i style="width:${Math.round(day / 3.65)}%"></i></div>
+ <div class="cols fgrid">${FC.map(c => { const it = f.items.filter(i => i.k === c); return it.length ? `<div><h3>${c}</h3>${it.map(i => `<div class="fit"><span>${esc(i.v)}</span><button class="chip" data-fx="${i.id}" aria-label="Remove ${esc(i.v)}">×</button></div>`).join("")}</div>` : "" }).join("")}</div>
+ <form id="fif" class="tf"><input id="fi" placeholder="Add to Future Me" aria-label="Add to Future Me" required><select id="fc" aria-label="Area">${FC.map(c => `<option>${c}</option>`).join("")}</select><button class="btn alt">Add</button></form><button class="chip" id="fre">Rewrite my vision</button></div>`
+        }
+        function findLk(lk) { if (!lk) return null; const [gid, sid, mid] = lk.split(":"); for (const a of AREAS) for (const g of S.life[a]) if (g.id == gid) { const st = g.steps.find(x => x[3] == sid); if (!st) return null; const m = mid ? (st[2] || []).find(x => x[2] == mid) : null; if (mid && !m) return null; return { a, g, st, m } } return null }
+        function cascade() { AREAS.forEach(a => S.life[a].forEach(g => g.steps.forEach(st => { const ms = st[2] || []; ms.forEach(m => { const ts = S.tasks.filter(t => t.lk === g.id + ":" + st[3] + ":" + m[2]); if (ts.length) m[1] = ts.every(t => t.done) ? 1 : 0 }); if (ms.length) st[1] = ms.every(m => m[1]) ? 1 : 0 }))); S.tasks.forEach(t => { if (t.lk && !findLk(t.lk)) t.lk = "" }) }
+        function hhmm(m) { return String(Math.floor(m / 60) % 24).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0") }
+        function rng(t) { return t.time + "–" + hhmm(tm(t) + t.dur) }
+        function lkShort(t) { const L = findLk(t.lk); return L ? " · " + (L.m ? L.m[0] : L.st[0]) : "" }
+        function chainHtml(t) { const L = findLk(t.lk); if (!L) return ""; const it = [["Goal", L.g.t], ["Roadmap", L.st[0]]]; if (L.m) it.push(["Milestone", L.m[0]]); it.push(["Task", t.t], ["Today", rng(t)]); return `<ol class="chain">${it.map(x => `<li><small>${x[0]}</small> ${esc(x[1])}</li>`).join("")}</ol>` }
+        function pickChain() { const t = pick && pick.id ? S.tasks.find(x => x.id === pick.id) : null; return t ? chainHtml(t) : "" }
+        function lkOptions(sel) { let o = '<option value="">Not linked to a goal</option>'; AREAS.forEach(a => S.life[a].forEach(g => g.steps.forEach(st => { const v = g.id + ":" + st[3]; o += `<option value="${v}"${sel === v ? " selected" : ""}>${esc(g.t)} › ${esc(st[0])}</option>`; (st[2] || []).forEach(m => { const w = v + ":" + m[2]; o += `<option value="${w}"${sel === w ? " selected" : ""}>${esc(g.t)} › ${esc(st[0])} › ${esc(m[0])}</option>` }) }))); return o }
+        function stepHtml(g, st, j, cur) {
+            const ms = st[2] || [], lk = g.id + ":" + st[3];
+            let h = `<li class="${st[1] ? "d" : j === cur ? "c" : ""}">${ms.length ? '<span class="dot"></span>' : `<button class="dot" data-ls="${g.id}:${j}" aria-label="Toggle ${esc(st[0])}"></button>`}<span>${esc(st[0])}</span>${j === cur ? "<em>You are here</em>" : ""}<button class="chip" data-plan="${lk}">Plan task</button><button class="chip" data-msadd="${g.id}:${j}">+ Milestone</button><button class="chip" data-lx="${g.id}:${j}" aria-label="Remove ${esc(st[0])}">×</button></li>`;
+            ms.forEach((m, k) => {
+                const ts = S.tasks.filter(t => t.lk === lk + ":" + m[2]), dn = ts.filter(t => t.done).length;
+                h += `<li class="ms ${m[1] ? "d" : ""}">${ts.length ? '<span class="dot"></span>' : `<button class="dot" data-mt="${g.id}:${j}:${k}" aria-label="Toggle ${esc(m[0])}"></button>`}<span>${esc(m[0])}${ts.length ? ` <small class="mute">${dn}/${ts.length} tasks</small>` : ""}</span><button class="chip" data-plan="${lk}:${m[2]}">Plan task</button><button class="chip" data-mx="${g.id}:${j}:${k}" aria-label="Remove ${esc(m[0])}">×</button></li>`
+            }); return h
+        }
+        let planLk = "";
+        const byCat = c => S.mem.filter(m => m.k === c).map(m => m.v);
+        const dstr = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        let lastAct = null, pick = null, skip = [], focusTask = null, focusLabel = "";
+        function suggest(skip) {
+            if (timer) return { title: "You're already in a focus session. Stay with it: " + mmss(left) + " left.", why: [], act: false };
+            const now = nowM(), d = new Date(), today = dstr(d), tom = dstr(new Date(d.getTime() + 864e5));
+            const open = S.tasks.filter(t => !t.done && !skip.includes(t.id) && !/^break$/i.test(t.t));
+            if (open.length) {
+                const score = t => {
+                    let s = ({ high: 30, med: 15, low: 5 })[t.pri || "med"], w = [];
+                    if (t.pri === "high") w.push("high priority");
+                    if (t.due) { if (t.due < today) { s += 40; w.push("overdue") } else if (t.due === today) { s += 30; w.push("due today") } else if (t.due === tom) { s += 15; w.push("due tomorrow") } }
+                    const st = tm(t); if (now >= st && now < st + t.dur) { s += 35; w.push("scheduled for right now") } else if (st > now && st - now <= 30) { s += 20; w.push("starts at " + t.time) } else if (st + t.dur <= now) { s += 12; w.push("planned earlier today") }
+                    if (t.post) { s += Math.min(24, t.post * 8); w.push("postponed " + t.post + (t.post > 1 ? " times" : " time")) }
+                    return { t, s, w }
+                };
+                const best = open.map(score).sort((a, b) => b.s - a.s)[0], t = best.t;
+                const nxt = open.filter(x => x.id !== t.id && tm(x) > now).map(tm).sort((a, b) => a - b)[0], gap = nxt ? nxt - now : 0;
+                let mins = Math.min(25, t.dur); if (gap > 0) mins = Math.min(mins, gap); mins = Math.max(5, mins);
+                const tiny = (t.post || 0) >= 2; if (tiny) { mins = Math.min(mins, 10); best.w.push("a small start counts") }
+                if (gap > 0 && gap <= 25) best.w.push(gap + " min free before your next task");
+                return { id: t.id, mins, act: true, title: (tiny ? "Spend just " : "Spend ") + mins + " minutes on " + t.t + ".", why: best.w, link: futureLink(t.t) }
+            }
+            const ns = nextStep();
+            if (ns) return { mins: 25, act: true, add: true, label: ns.s, lk: ns.lk, title: "Nothing is scheduled. Spend 25 minutes on " + ns.s + ".", why: ["next step toward " + ns.g.t + " (" + ns.a + ")"], link: futureLink(ns.s) };
+            return { title: "Nothing planned yet. Add a task below, or set a goal on Roadmap, and I'll pick your next move.", why: [], act: false }
+        }
         function say(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); speechSynthesis.speak(u) } catch (e) { } }
-        function send(q) { if (!q.trim()) return; S.chat.push({ r: "me", t: q }); const a = reply(q); S.chat.push({ r: "ai", t: a }); save(); render(); if (window._speak) say(a) }
+        function send(q) { if (!q.trim()) return; S.chat.push({ r: "me", t: q }); const a = reply(q); S.chat.push({ r: "ai", t: a, act: lastAct }); save(); render(); if (window._speak) say(a) }
         function listen() {
             const R = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!R) { alert("Voice input isn't supported in this browser. Type instead."); return }
             const r = new R(); r.lang = "en-US"; r.onstart = () => { listening = true; window._speak = true; render() };
-            r.onresult = e => { listening = false; send(e.results[0][0].transcript) }; r.onerror = r.onend = () => { if (listening) { listening = false; render() } }; try { r.start() } catch (e) { }
+            r.interimResults = true; r.onresult = e => { const x = e.results[e.results.length - 1]; if (x.isFinal) { listening = false; send(x[0].transcript) } else { const st = $(".status"); if (st) st.textContent = "“" + x[0].transcript + "”" } }; r.onerror = r.onend = () => { if (listening) { listening = false; render() } }; try { r.start() } catch (e) { }
         }
         function toggle(id) { const t = S.tasks.find(t => t.id === id); t.done = !t.done; save(); render() }
         function startFocus() { if (timer) { clearInterval(timer); timer = null; render(); return } timer = setInterval(() => { left--; if (left <= 0) { clearInterval(timer); timer = null; S.focusMin += fdur; S.sessions = (S.sessions || 0) + 1; left = fdur * 60; save() } render() }, 1000); render() }
@@ -646,43 +993,52 @@
                 const n = nextTask(), sorted = [...S.tasks].sort((a, b) => tm(a) - tm(b)); return `<p class="mute"><b style="color:var(--acc);font-size:1.15rem">Nivora</b> · ${greet()}${S.name ? ", " + esc(S.name) : ""}</p>
  <h1>You don't have to finish everything today. Just the next step.</h1>
  ${S.name ? "" : `<div class="card"><h2>What should I call you?</h2><form id="nf" class="row"><input id="ni" placeholder="Your name" aria-label="Your name"><button class="btn">Save</button></form></div>`}
- <div class="cols"><div class="card"><h2>Next</h2>${n ? `<b>${n.time} · ${esc(n.t)}</b><p class="mute">${n.dur} minutes. Start with just 10.</p><button class="btn" data-go="focus">Start now</button>` : S.tasks.length ? "<b>All planned tasks are done.</b>" : '<p class="mute">Nothing planned yet. Add your first task and Nivora will guide you from there.</p>'}</div>
+ ${S.future.text ? "" : futureCard()}
+ <button class="btn giant" id="wsn">What should I do now?</button>
+ ${pick ? `<div class="card move" role="status"><p class="mute" style="margin:0">Your next move</p><p class="mv">${esc(pick.title)}</p>${pick.why.length ? `<p class="mute" style="margin-top:0">${esc(pick.why.join(" · "))}</p>` : ""}${pick.link ? `<p class="fm">${esc(pick.link)}</p>` : ""}${pickChain()}<div class="row" style="flex-wrap:wrap">${pick.act ? '<button class="btn" id="pst">Start now</button>' : ""}${pick.id ? '<button class="btn alt" id="pdn">Done</button><button class="btn alt" id="pnw">Not now</button>' : ""}${pick.add ? '<button class="btn alt" id="pad">Add as a task</button>' : ""}</div></div>` : ""}
+ ${S.future.text ? futureCard() : ""}
+ <div class="cols"><div class="card"><h2>Next</h2>${n ? `<b>${n.time} · ${esc(n.t)}</b><p class="mute">${n.dur} minutes. Start with just 10.</p>${futureLink(n.t) ? `<p class="fm">${esc(futureLink(n.t))}</p>` : ""}${chainHtml(n)}<button class="btn" data-go="focus">Start now</button>` : S.tasks.length ? "<b>All planned tasks are done.</b>" : '<p class="mute">Nothing planned yet. Add your first task and Nivora will guide you from there.</p>'}</div>
  <div class="card"><div class="row sp"><h2>Today</h2><span class="mute">${pct()}%</span></div><div class="bar"><i style="width:${pct()}%"></i></div>
- ${sorted.map(t => `<div class="task ${t.done ? "done" : ""}"><button class="chk" data-t="${t.id}" aria-label="Toggle ${esc(t.t)}"></button><div style="flex:1"><b>${esc(t.t)}</b><div class="mute">${t.time} · ${t.dur} min</div></div><button class="chip" data-x="${t.id}" aria-label="Remove ${esc(t.t)}">Remove</button></div>`).join("")}
- <form id="tf" class="tf"><input id="tt" placeholder="Add a task" aria-label="Task" required><input id="tti" type="time" value="09:00" aria-label="Start time"><input id="td" type="number" min="5" max="480" value="30" aria-label="Minutes"><button class="btn">Add</button></form></div>
- <button class="btn" data-go="mentor" style="width:100%;padding:16px">Talk to ${esc(S.mentor)}</button></div>`
+ ${sorted.map(t => `<div class="task ${t.done ? "done" : ""}"><button class="chk" data-t="${t.id}" aria-label="Toggle ${esc(t.t)}"></button><div style="flex:1"><b>${esc(t.t)}</b><div class="mute">${rng(t)} · ${t.dur} min${t.pri === "high" ? " · high priority" : ""}${t.due ? " · due " + t.due : ""}${t.post ? " · postponed " + t.post + "×" : ""}${lkShort(t)}</div></div><button class="chip" data-x="${t.id}" aria-label="Remove ${esc(t.t)}">Remove</button></div>`).join("")}
+ <form id="tf" class="tf"><input id="tt" placeholder="Add a task" aria-label="Task" required><select id="tl" aria-label="Link to a goal">${lkOptions(planLk)}</select><input id="tti" type="time" value="09:00" aria-label="Start time"><input id="td" type="number" min="5" max="480" value="30" aria-label="Minutes"><select id="tp" aria-label="Priority"><option value="med">Normal</option><option value="high">High</option><option value="low">Low</option></select><input id="tdl" type="date" aria-label="Deadline"><button class="btn">Add</button></form></div>
+ <button class="btn" id="th2" style="width:100%;padding:16px">Talk to ${esc(S.mentor)}</button></div>`
             }
             if (tab === "mentor") return `<p class="mute">Your personal mentor</p><h1>${esc(S.mentor)}</h1>
  <div class="orbwrap ${listening ? "on" : ""}"><span class="ring r1"></span><span class="ring r2"></span><button class="orb ${listening ? "on" : ""}" id="mic" aria-label="Talk to ${esc(S.mentor)}"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
- <p class="status">${listening ? "Listening…" : "Tap the orb and start talking"}</p>
- <div class="panel" id="chat">${S.chat.length ? S.chat.map(m => `<div class="msg ${m.r}">${esc(m.t)}</div>`).join("") : `<p class="mute" style="margin:30px 0">I'm here. What's going on?</p>`}</div>
+ <p class="status">${listening ? "I'm here. What's going on?" : "Tap and talk. Try “I don't feel like studying.”"}</p>
+ <div class="panel" id="chat">${S.chat.length ? S.chat.map((m, i) => `<div class="msg ${m.r}">${esc(m.t)}${m.act ? `<div><button class="btn" data-ma="${i}" style="margin-top:10px">Start ${m.act.mins}-minute Focus</button></div>` : ""}</div>`).join("") : `<p class="mute" style="margin:30px 0">I'm here. What's going on?</p>`}</div>
  <div class="chips">${["What should I do now?", "I'm feeling lazy today", "I'm nervous about tomorrow", "Remind me what my goal is"].map(c => `<button class="chip" data-q="${c}">${c}</button>`).join("")}</div>
  <form id="f" class="row" style="margin-top:14px;flex-wrap:wrap"><input id="in" style="flex:1 1 200px" placeholder="Type to ${esc(S.mentor)}" aria-label="Message"><button class="btn">Send</button><button type="button" class="btn alt" id="stop">Stop voice</button></form>`;
             if (tab === "focus") {
-                const n = nextTask(), tot = fdur * 60, off = (603.2 * (1 - left / tot)).toFixed(1); return `<h1>Focus</h1><p class="mute">One task. No guilt. Starting is the hard part.</p>
- <div class="card" style="text-align:center;padding:24px 16px"><p class="mute" style="margin:0">Working on</p><b style="font-size:1.15rem">${n ? esc(n.t) : "One small thing you've been avoiding"}</b>
+                const n = S.tasks.find(t => t.id === focusTask && !t.done) || nextTask(), tot = fdur * 60, off = (603.2 * (1 - left / tot)).toFixed(1); return `<h1>Focus</h1><p class="mute">One task. No guilt. Starting is the hard part.</p>
+ <div class="card" style="text-align:center;padding:24px 16px"><p class="mute" style="margin:0">Working on</p><b style="font-size:1.15rem">${n ? esc(n.t) : esc(focusLabel) || "One small thing you've been avoiding"}</b>${futureLink(n ? n.t : focusLabel) ? `<p class="fm">${esc(futureLink(n ? n.t : focusLabel))}</p>` : ""}${n ? chainHtml(n) : ""}
  <div class="ringbox"><svg viewBox="0 0 220 220" aria-hidden="true"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--acc)"/><stop offset="1" style="stop-color:var(--acc2)"/></linearGradient></defs><circle class="trk" cx="110" cy="110" r="96"/><circle class="prg" cx="110" cy="110" r="96" stroke-dasharray="603.2" stroke-dashoffset="${off}" transform="rotate(-90 110 110)"/></svg><div class="ringtxt">${mmss(left)}<small>${timer ? "Stay with it" : "Ready when you are"}</small></div></div>
  <div class="chips" style="justify-content:center;margin-bottom:16px">${[5, 10, 25, 50].map(m => `<button class="chip" data-f="${m}" aria-pressed="${fdur === m}">${m} min</button>`).join("")}</div>
  <div class="row" style="justify-content:center"><button class="btn" id="go" style="min-width:140px">${timer ? "Pause" : "Start"}</button><button class="btn alt" id="rs">Reset</button></div></div>
  <div class="cols"><div class="card stat"><b>${S.focusMin}</b><span class="mute">minutes focused</span></div><div class="card stat"><b>${S.sessions || 0}</b><span class="mute">sessions finished</span></div></div>
  <div class="card"><h2>Tiny first step</h2><p class="mute" style="margin:0">Don't aim for two hours. Open the file, write one line, and let the timer carry you the rest of the way.</p></div>`}
             if (tab === "goals") {
-                const d = S.goals.filter(g => g[1]).length, p = S.goals.length ? Math.round(d / S.goals.length * 100) : 0; return `<h1>Roadmap</h1>
- ${S.goal ? `<div class="card"><div class="row sp"><div><p class="mute" style="margin:0">Your goal</p><h2 style="font-size:1.4rem;margin:0">${esc(S.goal)}</h2></div><button class="chip" id="gc">Change</button></div>${S.goals.length ? `<div class="bar" style="margin-top:14px"><i style="width:${p}%"></i></div><p class="mute" style="margin:6px 0 0">${d} of ${S.goals.length} steps done</p>` : ""}</div>
- <div class="card"><h2>Steps</h2>${S.goals.length ? S.goals.map((g, i) => `<div class="task ${g[1] ? "done" : ""}"><button class="chk" data-g="${i}" aria-label="Toggle ${esc(g[0])}"></button><b style="flex:1">${esc(g[0])}</b><button class="chip" data-gd="${i}">Remove</button></div>`).join("") : '<p class="mute">No steps yet. Add the first small step toward this goal.</p>'}
- <form id="sf" class="row" style="margin-top:12px"><input id="si" placeholder="Add a step" aria-label="Step" required><button class="btn">Add</button></form></div>`
-                        : `<div class="card"><h2>What do you want to work toward?</h2><p class="mute">Set your own goal, then break it into steps. Nothing is added for you.</p><form id="gf" class="row"><input id="gi" placeholder="Your goal" aria-label="Goal" required><button class="btn">Save goal</button></form></div>`}`
+                const goals = S.life[area]; return `<h1>Life Map</h1><p class="mute">See where you're going, not just what's on your list. Tap an area to open its path.</p>
+ ${futureCard(true)}
+ <div class="card" style="padding:10px">${mapSvg()}</div>
+ <div class="card"><div class="row sp"><h2>${area}</h2><span class="mute">${goals.length} ${goals.length === 1 ? "goal" : "goals"}</span></div>
+ ${goals.length ? goals.map(g => {
+                    const cur = g.steps.findIndex(x => !x[1]); return `<div class="gpath"><div class="row sp"><b style="font-size:1.1rem">${esc(g.t)}</b><button class="chip" data-lgx="${g.id}">Remove goal</button></div>
+ <ol class="path">${g.steps.map((st, j) => stepHtml(g, st, j, cur)).join("")}${g.steps.length ? '<li class="fin"><span class="dot" style="border-style:dashed"></span><span>Future Me</span></li>' : ""}</ol>
+ <form class="row lsf" data-gid="${g.id}"><input placeholder="Add a step" aria-label="Add a step to ${esc(g.t)}" required><button class="btn alt">Add step</button></form></div>`
+                }).join("") : `<p class="mute">No goals in ${area} yet. Add one, then break it into steps to see your path.</p>`}
+ <form id="lgf" class="row" style="margin-top:14px"><input id="lgi" placeholder="Add a goal in ${area}" aria-label="Goal" required><button class="btn">Add goal</button></form></div>`
             }
             if (tab === "settings") return `<h1>Settings</h1>
  <div class="card"><h2>Colour theme</h2><div class="sw">${PAL.map((p, i) => `<button class="swb" data-p="${i}" aria-label="${p.n}" aria-pressed="${S.theme.pal === i}" style="background:linear-gradient(135deg,${p.a[0]},${p.b[0]})"></button>`).join("")}</div><p class="mute">${PAL[S.theme.pal].n}</p></div>
  <div class="card"><h2>Appearance</h2><div class="chips">${["light", "dark", "auto"].map(m => `<button class="chip" data-m="${m}" aria-pressed="${S.theme.mode === m}">${m[0].toUpperCase() + m.slice(1)}</button>`).join("")}</div></div>
  <div class="card"><h2>Names</h2><label class="mute" for="un">Your name</label><input id="un" value="${esc(S.name)}"><label class="mute" for="mn">Mentor name</label><input id="mn" value="${esc(S.mentor)}"></div>`;
-            return `<h1>Your vault</h1><p class="mute">Your information belongs to you. I only remember what you choose to save.</p>
- <div class="card"><label class="row sp"><b>Memory ${S.memOn ? "on" : "paused"}</b><button class="btn alt" id="mt">${S.memOn ? "Pause" : "Turn on"}</button></label></div>
- <div class="cols"><div class="card"><h2>Saved memories</h2>${S.mem.length ? S.mem.map(m => `<div class="task"><div style="flex:1"><b>${esc(m.v)}</b><div class="mute">${esc(m.k)} · ${esc(m.why)}</div></div><button class="chip" data-d="${m.id}">Delete</button></div>`).join("") : '<p class="mute">Nothing saved yet. Tell the mentor "remember that…"</p>'}
- <form id="mf" class="row" style="margin-top:10px"><input id="mi" placeholder="Add a memory" aria-label="New memory"><button class="btn">Save</button></form>
- <button class="btn alt" id="da" style="margin-top:10px">Delete all memories</button></div>
- <div class="card"><h2>Privacy</h2><p class="mute">Stored: your tasks, goals, chat, and saved memories, in this browser only. Not stored: anything you haven't entered. Not connected to any outside service.</p><button class="btn alt" id="ex">Export my data</button> <button class="btn alt" id="wipe">Delete everything</button></div></div>`}
+            return `<h1>My Brain</h1><p class="mute">Everything here was saved by you. Nothing else is stored, and you can edit or delete any of it.</p>
+ <div class="card" style="padding:8px">${brainSvg()}</div>
+ <div class="card"><h2>Save something</h2><form id="mf" class="tf"><input id="mi" placeholder="Something you want ${esc(S.mentor)} to remember" aria-label="Memory" required><select id="mc" aria-label="Category">${CATS.map(c => `<option>${c}</option>`).join("")}</select><button class="btn">Save</button></form>${S.memOn ? "" : '<p class="mute">Memory is paused. Turn it on below to save.</p>'}</div>
+ <div class="cols">${CATS.map(c => { const it = S.mem.filter(m => m.k === c); return `<div class="card"><div class="row sp"><h2>${c}</h2><span class="mute">${it.length}</span></div>${it.length ? it.map(m => `<div class="task"><div style="flex:1"><b>${esc(m.v)}</b><div class="mute">${esc(m.why)}</div></div><button class="chip" data-me="${m.id}">Edit</button><button class="chip" data-d="${m.id}">Delete</button></div>`).join("") : '<p class="mute" style="margin:0">Nothing saved here yet.</p>'}</div>` }).join("")}</div>
+ <div class="card"><h2>Memory controls</h2><div class="row sp"><b>Memory ${S.memOn ? "on" : "paused"}</b><button class="btn alt" id="mt">${S.memOn ? "Pause" : "Turn on"}</button></div><p class="mute">Categories ${esc(S.mentor)} may remember:</p><div class="chips">${CATS.map(c => `<button class="chip" data-ca="${c}" aria-pressed="${!S.off.includes(c)}">${c}</button>`).join("")}</div><button class="btn alt" id="da" style="margin-top:14px">Delete all memories</button></div>
+ <div class="card"><h2>Privacy</h2><p class="mute">Stored: your tasks, goal, chat, and saved memories, in this browser only. Not stored: anything you haven't entered. Not connected to any outside service.</p><button class="btn alt" id="ex">Export my data</button> <button class="btn alt" id="wipe">Delete everything</button></div>`}
         function render() {
             applyTheme(); $("#app").innerHTML = '<div class="wrap t-' + tab + '">' + view() + "</div>"; $("#nav").innerHTML = '<div class="brand">Nivora</div>' + tabs.map(t => `<button data-go="${t[0]}" ${t[0] === tab ? 'aria-current="true"' : ""}>${t[1]}</button>`).join("");
             const a = $("#app"); a.querySelectorAll("[data-t]").forEach(b => b.onclick = () => toggle(+b.dataset.t));
@@ -697,19 +1053,44 @@
             on("#mic", listen); on("#stop", () => { window._speak = false; try { speechSynthesis.cancel() } catch (e) { } });
             on("#go", startFocus); on("#rs", () => { clearInterval(timer); timer = null; left = fdur * 60; render() });
             on("#mt", () => { S.memOn = !S.memOn; save(); render() }); on("#da", () => { if (confirm("Delete all memories?")) { S.mem = []; save(); render() } });
-            on("#wipe", () => { if (confirm("Delete everything?")) { S = JSON.parse(JSON.stringify(defaults)); save(); render() } });
+            on("#wipe", () => { if (confirm("Delete everything?")) { S = JSON.parse(JSON.stringify(defaults)); ensureLife(); save(); render() } });
             on("#th", () => { const r = document.documentElement; r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark" });
             on("#ex", () => { const w = window.open("", "_blank"); if (w) w.document.write("<pre>" + esc(JSON.stringify(S, null, 2)) + "</pre>") });
             const sub = (id, fn) => { const e = $(id); if (e) e.onsubmit = ev => { ev.preventDefault(); fn(e); save(); render() } };
             sub("#nf", () => { S.name = $("#ni").value.trim() });
-            sub("#tf", () => { const t = $("#tt").value.trim(); if (t) S.tasks.push({ id: Date.now(), t, time: $("#tti").value || "09:00", dur: +$("#td").value || 30, done: false }) });
+            sub("#tf", () => { planLk = ""; const t = $("#tt").value.trim(); if (t) S.tasks.push({ id: Date.now(), t, time: $("#tti").value || "09:00", dur: +$("#td").value || 30, done: false, pri: $("#tp").value, due: $("#tdl").value, post: 0, lk: $("#tl").value }) });
             sub("#gf", () => { S.goal = $("#gi").value.trim() }); sub("#sf", () => { const v = $("#si").value.trim(); if (v) S.goals.push([v, 0]) });
             a.querySelectorAll("[data-x]").forEach(b => b.onclick = () => { S.tasks = S.tasks.filter(t => t.id != b.dataset.x); save(); render() });
             a.querySelectorAll("[data-gd]").forEach(b => b.onclick = () => { S.goals.splice(+b.dataset.gd, 1); save(); render() });
             a.querySelectorAll("[data-f]").forEach(b => b.onclick = () => { if (timer) return; fdur = +b.dataset.f; left = fdur * 60; render() });
+            const fab = $("#fab"); fab.hidden = tab === "mentor"; fab.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Talk to ' + esc(S.mentor);
+            const talk = () => { tab = "mentor"; render(); scrollTo(0, 0); listen() }; fab.onclick = talk; on("#th2", talk);
+            a.querySelectorAll("[data-ma]").forEach(b => b.onclick = () => { const x = S.chat[+b.dataset.ma].act; try { speechSynthesis.cancel() } catch (e) { } fdur = x.mins; left = fdur * 60; focusTask = x.id || null; focusLabel = x.label || ""; tab = "focus"; if (timer) { clearInterval(timer); timer = null } startFocus(); scrollTo(0, 0) });
+            a.querySelectorAll("[data-me]").forEach(b => b.onclick = () => { const m = S.mem.find(x => x.id == b.dataset.me), v = prompt("Edit memory", m.v); if (v && v.trim()) { m.v = v.trim(); save(); render() } });
+            a.querySelectorAll("[data-ca]").forEach(b => b.onclick = () => { const c = b.dataset.ca; S.off = S.off.includes(c) ? S.off.filter(x => x !== c) : S.off.concat(c); save(); render() });
+            a.querySelectorAll("[data-area]").forEach(b => { const f = () => { area = b.dataset.area; render() }; b.onclick = f; b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); f() } } });
+            const gg = id => S.life[area].find(g => g.id == id);
+            sub("#lgf", () => { const t = $("#lgi").value.trim(); if (t) S.life[area].push({ id: Date.now(), t, steps: [] }) });
+            a.querySelectorAll(".lsf").forEach(f => f.onsubmit = e => { e.preventDefault(); const v = f.querySelector("input").value.trim(); if (v) { gg(f.dataset.gid).steps.push([v, 0, [], uid()]); save(); render() } });
+            a.querySelectorAll("[data-ls]").forEach(b => b.onclick = () => { const [i, j] = b.dataset.ls.split(":"), st = gg(i).steps[+j]; st[1] = st[1] ? 0 : 1; save(); render() });
+            a.querySelectorAll("[data-lx]").forEach(b => b.onclick = () => { const [i, j] = b.dataset.lx.split(":"); gg(i).steps.splice(+j, 1); save(); render() });
+            a.querySelectorAll("[data-lgx]").forEach(b => b.onclick = () => { if (confirm("Remove this goal and its steps?")) { S.life[area] = S.life[area].filter(g => g.id != b.dataset.lgx); save(); render() } });
+            sub("#ff", () => { const t = $("#ft").value.trim(); if (t) S.future = { text: t, at: Date.now(), items: parseFuture(t) } });
+            sub("#fif", () => { const v = $("#fi").value.trim(); if (v) S.future.items.push({ id: Date.now(), k: $("#fc").value, v }) });
+            a.querySelectorAll("[data-fx]").forEach(b => b.onclick = () => { S.future.items = S.future.items.filter(i => i.id != b.dataset.fx); save(); render() });
+            on("#fre", () => { if (confirm("Rewrite your vision? Your current areas will be replaced.")) { S.future = { text: "", items: [], at: 0, draft: S.future.text }; save(); render() } });
+            a.querySelectorAll("[data-plan]").forEach(b => b.onclick = () => { planLk = b.dataset.plan; tab = "home"; render(); scrollTo(0, 0); setTimeout(() => { const e = $("#tt"); if (e) e.focus() }, 0) });
+            a.querySelectorAll("[data-msadd]").forEach(b => b.onclick = () => { const [i, j] = b.dataset.msadd.split(":"), v = prompt("Milestone name (for example: Hooks)"); if (v && v.trim()) { const st = gg(i).steps[+j]; (st[2] = st[2] || []).push([v.trim(), 0, uid()]); save(); render() } });
+            a.querySelectorAll("[data-mt]").forEach(b => b.onclick = () => { const [i, j, k] = b.dataset.mt.split(":"), m = gg(i).steps[+j][2][+k]; m[1] = m[1] ? 0 : 1; save(); render() });
+            a.querySelectorAll("[data-mx]").forEach(b => b.onclick = () => { const [i, j, k] = b.dataset.mx.split(":"); gg(i).steps[+j][2].splice(+k, 1); save(); render() });
+            on("#wsn", () => { skip = []; pick = suggest(skip); render() });
+            on("#pst", () => { fdur = pick.mins; left = fdur * 60; focusTask = pick.id || null; focusLabel = pick.label || ""; tab = "focus"; pick = null; if (timer) { clearInterval(timer); timer = null } startFocus(); scrollTo(0, 0) });
+            on("#pdn", () => { const t = S.tasks.find(x => x.id === pick.id); if (t) t.done = true; save(); pick = suggest(skip); render() });
+            on("#pnw", () => { const t = S.tasks.find(x => x.id === pick.id); if (t) { t.post = (t.post || 0) + 1; skip.push(t.id); save() } pick = suggest(skip); render() });
+            on("#pad", () => { const d = new Date(); S.tasks.push({ id: Date.now(), t: pick.label, time: String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"), dur: 25, done: false, pri: "med", post: 0, lk: pick.lk || "" }); save(); pick = null; render() });
             on("#gc", () => { S.goal = ""; save(); render() });
             const f = $("#f"); if (f) f.onsubmit = e => { e.preventDefault(); const v = $("#in").value; send(v) };
-            const mf = $("#mf"); if (mf) mf.onsubmit = e => { e.preventDefault(); const v = $("#mi").value.trim(); if (v && S.memOn) { S.mem.push({ id: Date.now(), k: "Note", v, why: "You added it yourself" }); save(); render() } };
+            const mf = $("#mf"); if (mf) mf.onsubmit = e => { e.preventDefault(); const v = $("#mi").value.trim(); if (v && S.memOn && !S.off.includes($("#mc").value)) { S.mem.push({ id: Date.now(), k: $("#mc").value, v, why: "You added it yourself" }); save(); render() } };
             const c = $("#chat"); if (c && c.lastChild) c.lastChild.scrollIntoView({ block: "nearest" })
         }
         render();
